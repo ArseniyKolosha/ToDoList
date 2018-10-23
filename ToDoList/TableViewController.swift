@@ -42,9 +42,9 @@ class TableViewController: UITableViewController {
         cell.textLabel?.text = currentItem["Name"] as? String
         
         if (currentItem["isCompleted"] as? Bool) == true {
-            cell.imageView?.image = UIImage(named: "check")
+            cell.imageView?.image = UIImage(named: "ListCheck")
         } else {
-            cell.imageView?.image = UIImage(named: "uncheck")
+            cell.imageView?.image = UIImage(named: "ListFree")
         }
         
         if tableView.isEditing {
@@ -99,17 +99,14 @@ class TableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         if changeState(at: indexPath.row) {
-            tableView.cellForRow(at: indexPath)?.imageView?.image = UIImage(named: "check")
+            tableView.cellForRow(at: indexPath)?.imageView?.image = UIImage(named: "ListCheck")
         } else {
-            tableView.cellForRow(at: indexPath)?.imageView?.image = UIImage(named: "uncheck")
+            tableView.cellForRow(at: indexPath)?.imageView?.image = UIImage(named: "ListFree")
         }
-        
-        
         
     }
     
 
-    
     // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         
@@ -117,8 +114,7 @@ class TableViewController: UITableViewController {
         
         tableView.reloadData()
     }
-    
-
+ 
     /*
     // Override to support conditional rearranging of the table view.
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -147,8 +143,11 @@ class TableViewController: UITableViewController {
         let alertAction2 = UIAlertAction(title: "Create", style: .cancel) { (alert) in
             //Dobavit novyu zapis
            let newItem = alertController.textFields![0].text
-            addItem(nameItem: newItem!)
-            self.tableView.reloadData()
+            if newItem != "" {
+                addItem(nameItem: newItem!)
+                self.tableView.reloadData()
+            }
+            
         }
         
         alertController.addAction(alertAction1)
@@ -157,6 +156,7 @@ class TableViewController: UITableViewController {
         present(alertController, animated: true, completion: nil)
         
     }
+   
     
     @IBAction func pushEditAction(_ sender: Any) {
         tableView.setEditing(!tableView.isEditing, animated: true)
