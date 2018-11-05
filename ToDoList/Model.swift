@@ -10,6 +10,7 @@ import Foundation
 import UserNotifications
 import UIKit
 
+
 var ToDoItems: [[String: Any]] {
     set {
         UserDefaults.standard.set(newValue, forKey: "ToDoDataKey")
@@ -21,7 +22,6 @@ var ToDoItems: [[String: Any]] {
         } else {
             return []
         }
-
     }
 }
 
@@ -43,7 +43,6 @@ func moveItem(fromIndex: Int, toIndex: Int) {
 
 func changeState(at item: Int) -> Bool {
     ToDoItems[item]["isCompleted"] = !(ToDoItems[item]["isCompleted"] as! Bool)
-    
     setBadge()
     return ToDoItems[item]["isCompleted"] as! Bool
 }
@@ -57,18 +56,18 @@ func requestForNotification() {
             print("Пришёл отказ")
         }
     }
-    
-    
 }
 
 func setBadge() {
     var totalBadgeNumber = 0
-    
     for item in ToDoItems {
         if (item["isCompleted"] as? Bool) == false {
             totalBadgeNumber = totalBadgeNumber + 1
         }
     }
     UIApplication.shared.applicationIconBadgeNumber = totalBadgeNumber
+}
+
+func saveRecognizedText() {
     
 }

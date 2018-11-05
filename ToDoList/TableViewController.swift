@@ -8,18 +8,27 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
 
+class TableViewController: UITableViewController {
+    
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = UIColor.groupTableViewBackground
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
@@ -40,6 +49,7 @@ class TableViewController: UITableViewController {
         
         let currentItem = ToDoItems[indexPath.row]
         cell.textLabel?.text = currentItem["Name"] as? String
+        cell.textLabel?.numberOfLines = 0
         
         if (currentItem["isCompleted"] as? Bool) == true {
             cell.imageView?.image = UIImage(named: "ListCheck")
@@ -138,7 +148,6 @@ class TableViewController: UITableViewController {
             textField.placeholder = "New item name"
         }
        let alertAction1 = UIAlertAction(title: "Cancel", style: .default) { (alert) in
-        
         }
         let alertAction2 = UIAlertAction(title: "Create", style: .cancel) { (alert) in
             //Dobavit novyu zapis
@@ -166,6 +175,10 @@ class TableViewController: UITableViewController {
         
         //tableView.reloadData()
     }
+   
+    
+   
+    
     
     
 }

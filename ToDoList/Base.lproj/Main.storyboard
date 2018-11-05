@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2ut-LX-USo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2ut-LX-USo">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -46,15 +48,20 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="ToDo Items" id="ZNC-DF-pQ8">
+                        <barButtonItem key="leftBarButtonItem" systemItem="edit" id="y4Y-Vy-Lwy">
+                            <connections>
+                                <action selector="pushEditAction:" destination="aOk-8e-oby" id="a6s-oz-zUS"/>
+                            </connections>
+                        </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="vlg-Wi-Qyk">
                                 <connections>
                                     <action selector="pushAddAction:" destination="aOk-8e-oby" id="WFN-KD-Hxl"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="edit" id="y4Y-Vy-Lwy">
+                            <barButtonItem title="Voice" id="KTi-0K-XC2">
                                 <connections>
-                                    <action selector="pushEditAction:" destination="aOk-8e-oby" id="a6s-oz-zUS"/>
+                                    <segue destination="pfi-DQ-Cvr" kind="show" id="UUp-A4-xxq"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -64,6 +71,66 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WIx-wu-jGY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="822" y="-601"/>
+        </scene>
+        <!--Speech View Controller-->
+        <scene sceneID="ja4-9N-etx">
+            <objects>
+                <viewController id="pfi-DQ-Cvr" customClass="SpeechViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SI6-9c-dbK">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tap 'Record' and say" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rkb-Op-pBo">
+                                <rect key="frame" x="16" y="123" width="343" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wJ4-Ld-LkZ">
+                                <rect key="frame" x="131" y="344" width="112" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <state key="normal" title="Record"/>
+                                <state key="selected" title="Stop"/>
+                                <connections>
+                                    <action selector="recognizeButtonPressed:" destination="pfi-DQ-Cvr" eventType="touchUpInside" id="NsE-8h-bTL"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u9z-EP-flg">
+                                <rect key="frame" x="62" y="411" width="38" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveButtonPressed:" destination="pfi-DQ-Cvr" eventType="touchUpInside" id="Rxi-Zk-fyn"/>
+                                    <segue destination="aOk-8e-oby" kind="show" id="1rF-qH-yhk"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fNz-Dr-FJX">
+                                <rect key="frame" x="269" y="412" width="51" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <state key="normal" title="Delete"/>
+                                <connections>
+                                    <action selector="deleteButtonPressed:" destination="pfi-DQ-Cvr" eventType="touchUpInside" id="UnB-Rg-Csf"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="wK4-hg-Qmp"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="nAt-hI-r71"/>
+                    <connections>
+                        <outlet property="deleteButton" destination="fNz-Dr-FJX" id="QaA-EC-FsA"/>
+                        <outlet property="recognizeButton" destination="wJ4-Ld-LkZ" id="OmG-qf-sbe"/>
+                        <outlet property="resultLabel" destination="Rkb-Op-pBo" id="axi-JV-rjZ"/>
+                        <outlet property="saveButton" destination="u9z-EP-flg" id="uFM-Ai-N0u"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="orJ-uv-2fl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1768.8" y="-601.34932533733138"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qQ9-LV-CMG">
@@ -88,4 +155,8 @@
     <resources>
         <image name="uncheck" width="27" height="27"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="UUp-A4-xxq"/>
+        <segue reference="1rF-qH-yhk"/>
+    </inferredMetricsTieBreakers>
 </document>
